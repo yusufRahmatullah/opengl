@@ -3,18 +3,30 @@
 #include <iostream>
 #include <GL/glew.h>
 #include <GL/freeglut.h>
-using namespace std;
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #define _USE_MATH_DEFINES
 #include <math.h>
+using namespace std;
+
+// data structure
+struct attributes {
+	GLfloat coord3d[3];
+	GLfloat v_color[3];
+};
+
 // Data and global variable
 // -----------------
 GLuint program;
 GLint attribute_coord2d;
+GLint attribute_coord3d;
 GLint attribute_v_color;
 GLuint vbo_triangle;
 GLuint vbo_triangle_colors;
 GLuint uniform_fade;
+GLuint uniform_m_transform;
 // -----------------
 
 // for reading file and convert to array of char
@@ -125,7 +137,7 @@ int init_resources(void)
 	glBindBuffer(GL_ARRAY_BUFFER, vbo_triangle_colors);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(triangle_colors), triangle_colors, GL_STATIC_DRAW);
 	*/
-
+	
 	// combine triangle attribute
 	GLfloat triangle_attribute[] = {
 		0.0, 0.8, 1.0, 1.0, 0.0,
@@ -135,6 +147,15 @@ int init_resources(void)
 	glGenBuffers(1, &vbo_triangle);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo_triangle);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(triangle_attribute), triangle_attribute, GL_STATIC_DRAW);
+	
+	/*
+	// init 3d triangle attribute
+	struct attributes tri3d_attributes[] = {
+		{{0.0, 0.8, 0.0}, {1.0, 1.0, 0.0}},
+		{{-0.8, -0.8, 0.0}, {0.0, 0.0, 1.0}},
+		{{0.8, -0.8, 0.0}, {1.0, 0.0, 0.0}}
+	};
+	*/
 
 	// init vertex resource
 	// init fragment resource
@@ -156,6 +177,7 @@ int init_resources(void)
 		return 0;
 	}
 
+	
 	// pass the triangle vertices to the vertex shader
 	const char* attribute_name = "coord2d";
 	attribute_coord2d = glGetAttribLocation(program, attribute_name);
@@ -165,7 +187,7 @@ int init_resources(void)
 		return 0;
 	}
 
-	// pass the tirangle colors to the vertex shader
+	// pass the triangle colors to the vertex shader
 	attribute_name = "v_color";
 	attribute_v_color = glGetAttribLocation(program, attribute_name);
 	if(attribute_v_color == -1)
@@ -173,6 +195,7 @@ int init_resources(void)
 		cout << "Could not bind attribute " << attribute_name << endl;
 		return 0;
 	}
+	
 
 	// pass the uniform attribute
 	const char* uniform_name = "fade";
@@ -182,6 +205,26 @@ int init_resources(void)
 		cout << "Could not bind uniform " << uniform_name << endl;
 		return 0;
 	}
+
+	/*
+	// pass the triangle3D attribute
+	const char* attribute_name = "coord3d";
+	attribute_coord3d = glGetAttribLocation(program, attribute_name);
+	if(attribute_coord3d == -1)
+	{
+		cout << "Could not bind uniform " << uniform_name << endl;
+		return 0;
+	}
+
+	// pass the unirform transform
+	uniform_name = "m_transform";
+	uniform_m_transform = glGetUniformLocation(program, uniform_name);
+	if(uniform_m_transform == -1)
+	{
+		cout << "Could not bind uniform " << uniform_name << endl;
+		return 0;
+	}
+	*/
 
 	return 1;
 }
@@ -245,6 +288,18 @@ void onDisplay()
 		5 * sizeof(GLfloat),
 		(GLvoid*) (2 * sizeof(GLfloat))
 	);
+	
+	/*
+	// describe triangle3D attribute
+	glVertexAttribPointer(
+		attribute_coord3d,
+		3,
+		GL_FLOAT,
+		GL_FALSE,
+		sizeof(struct attributes),
+		0
+	);
+	*/
 
 	// push each element in buffer vertices to the vertex shader
 	glDrawArrays(GL_TRIANGLES, 0, 3);
@@ -259,9 +314,15 @@ void onDisplay()
 
 void onIdle()
 {
+	float move = sinf(glutGet(GLUT_ELAPSED_TIME) / 1000.0 * (2*M_PI) / 5);
+	float angle = glutGet(GLUT_ELAPSED_TIME) / 1000.0 * 45;
+	glm::vec3 axis_z(0, 0, 1);
+	glm::mat4 m_transform = glm::translate(glm::mat4(1.0f), glm::vec3(move, 0.0, 0.0))
+		* glm::rotate(glm::mat4(1.0f), angle, axis_z);
 	float cur_fade = sinf(glutGet(GLUT_ELAPSED_TIME) / 1000.0 * (2*M_PI) / 5) /2 + 0.5;
 	glUseProgram(program);
 	glUniform1f(uniform_fade, cur_fade);
+	//glUniformMatrix4fv(uniform_m_transform, 1, GL_FALSE, glm::value_ptr(m_transform));
 	glutPostRedisplay();
 }
  
