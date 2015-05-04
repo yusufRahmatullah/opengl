@@ -1,0 +1,22 @@
+﻿Build started 5/4/2015 10:37:52 AM.
+     1>Project "D:\kuliah\IF\Semester 6\IF3260 Grafika\2015\OpenGL\study\GLSL\Project1\Project1\Project1.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D _MBCS /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt triangle.cpp
+         triangle.cpp
+     1>triangle.cpp(23): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(218) : see declaration of 'fopen'
+     1>triangle.cpp(131): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
+     1>triangle.cpp(132): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
+     1>triangle.cpp(133): warning C4305: 'initializing' : truncation from 'double' to 'GLfloat'
+     1>triangle.cpp(262): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>triangle.cpp(262): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\kuliah\IF\Semester 6\IF3260 Grafika\2015\OpenGL\study\GLSL\Project1\Release\Project1.exe" /NOLOGO glew32.lib libfreeglut.a glu32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:freeglutd.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\kuliah\IF\Semester 6\IF3260 Grafika\2015\OpenGL\study\GLSL\Project1\Release\Project1.pdb" /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\kuliah\IF\Semester 6\IF3260 Grafika\2015\OpenGL\study\GLSL\Project1\Release\Project1.lib" /MACHINE:X86 /SAFESEH:NO Release\triangle.obj
+         Generating code
+         Finished generating code
+         Project1.vcxproj -> D:\kuliah\IF\Semester 6\IF3260 Grafika\2015\OpenGL\study\GLSL\Project1\Release\Project1.exe
+     1>Done Building Project "D:\kuliah\IF\Semester 6\IF3260 Grafika\2015\OpenGL\study\GLSL\Project1\Project1\Project1.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:03.32
